@@ -1,0 +1,94 @@
+<!-- 绘制封闭的图形 -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>globalCompositeOperation</title>
+</head>
+<style type="text/css" media="screen">
+    body {
+        margin-bottom: 40px;
+    }
+    #buttons {text-align: center;}
+    #buttons a {padding: 0 4px;}
+</style>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+<div id="buttons">
+    <a href="#">source-over</a>
+    <a href="#">source-atop</a>
+    <a href="#">source-in</a>
+    <a href="#">source-out</a>
+    <a href="#">destination-over</a>
+    <a href="#">destination-atop</a>
+    <a href="#">destination-in</a>
+    <a href="#">destination-out</a>
+    <a href="#">lighter</a>
+    <a href="#">copy</a>
+    <a href="#">xor</a>
+
+</div>
+
+<script>
+    window.onload = function(){
+        draw("source-over");
+
+        var buttons = document.getElementById("buttons").getElementsByTagName("a");
+        for(var i=0;i<buttons.length;i++) {
+            buttons[i].onclick = function() {
+                draw(this.text);
+                return false;
+            }
+        }
+       
+        
+        context.globalAlpha = 0.7;
+        for(var i=0;i<100;i++) {
+            var R = Math.floor(Math.random()*255);
+            var G = Math.floor(Math.random()*255);
+            var B = Math.floor(Math.random()*255);
+
+            context.fillStyle = "rgb(" + R +","+G+","+B+")";
+            context.beginPath();
+            context.arc(Math.random()*canvas.width,Math.random()*canvas.height,Math.random()*100,0,Math.PI*2);
+            context.fill();
+
+
+        }
+
+        
+        
+
+    }
+    function draw(compositeStyle) {
+         var canvas = document.getElementById("canvas");
+
+        canvas.width = 1200;
+        canvas.height = 700;
+        var context = canvas.getContext('2d');
+
+        context.clearRect(0,0,canvas.width,canvas.height);
+        context.font = "bold 40px Arial";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillStyle = "#058";
+        context.fillText("globalCompositeOperation = "+compositeStyle,canvas.width/2,60);
+
+        context.fillStyle = "blue";
+        context.fillRect(300,150,300,300);
+
+        context.globalCompositeOperation = compositeStyle;
+        context.fillStyle = "red";
+        context.beginPath();
+        context.moveTo(500,300);
+        context.lineTo(700,650);
+        context.lineTo(300,650);
+        context.closePath();
+        context.fill();
+
+    }
+</script>
+</body>
+</html>

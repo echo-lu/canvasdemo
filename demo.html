@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext('2d');
+        
+        context.moveTo(100,200);
+        context.lineTo(300,400);
+        context.lineTo(100,600);
+        context.lineWidth = 10;
+        context.strokeStyle = "red";
+        context.stroke(); 
+        //由于canvas是基于状态的，在每一次进行绘制的时候，canvas不是简单的将上一段代码进行绘制，而是检查在整个程序中设置的所有状态，基于这些状态完成一次绘制。所以strokeStyle = "green"会覆盖前面
+        //的strokeStyle = "red"，最终两个箭头都是绿色的，如果我们要实现不同状态的绘制可以使用beginPath（），beginPath（）声明从现在开始进行一段新的绘制。当使用beginPath（）后，在指定新的路径，再调用新的绘制函数将会采用beginPath（）之后设置的新的状态来进行绘制
+        context.moveTo(300,200);
+        context.lineTo(500,400);
+        context.lineTo(300,600);
+        context.lineWidth = 10;
+        context.strokeStyle = "green";
+
+        context.stroke();      
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext('2d');
+        
+        drawStar(context,400,400,300,150,30,10,"#099","#228");
+        
+
+    }
+//绘制五角星：把五角星的十个顶点分成两组，分别在一个大圆和一个小圆上，加入坐标系(canvas中y轴是向下的），用函数表示十个顶点
+//对于54deg：x=cos（54deg）*r，y=-sin（54deg）*r
+//对于18deg：x=cos（18deg）*r，y=-sin（18deg）*r
+//R为大圆半径，r为小圆半径，x、y为五角星的偏移量，rot为旋转角度
+    function drawStar(cxt,x,y,R,r,rot,borderWidth,borderColor,fillColor) {
+        starPath(cxt);
+
+        cxt.lineWidth = borderWidth;
+        cxt.fillColor = fillColor;
+        cxt.strokeStyle = borderColor;
+        cxt.fill();
+        cxt.stroke();
+    }
+
+    function starPath(cxt) {
+        cxt.beginPath();
+        for(var i=0;i<5;i++) {
+            //大圆上x，y的坐标
+            cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R +x,-Math.sin((18+i*72-rot)/180*Math.PI)*R +y);
+                //小圆上x，y的坐标
+            cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r +x,-Math.sin((54+i*72-rot)/180*Math.PI)*r +y);
+        }
+        
+        cxt.closePath();
+    }
+</script>
+</body>
+</html>

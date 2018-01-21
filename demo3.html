@@ -1,0 +1,41 @@
+<!-- 绘制封闭的图形 -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;">
+    当前浏览器不支持Canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+    window.onload = function(){
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext('2d');
+        
+        drawRect(context,100,100,400,600,10,"#099","#228");
+        
+
+    }
+
+    function drawRect(cxt,x,y,width,height,borderWidth,borderColor,fillColor) {
+        cxt.beginPath();
+        cxt.fillRect (x,y,width,height);
+        
+        cxt.closePath();
+
+        cxt.lineWidth = borderWidth;
+        cxt.fillColor = fillColor;
+        cxt.strokeStyle = borderColor;
+        cxt.fill();
+        cxt.stroke();
+    }
+</script>
+</body>
+</html>
